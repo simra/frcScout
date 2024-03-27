@@ -9,9 +9,6 @@ fi
 echo "Using npm version: $(npm -v)"
 echo "Using node version: $(node -v)"
 
-echo "Python dependencies..."
-cat requirements.txt
-
 cd backend
 rm -rf static/build
 cd ../frontend
