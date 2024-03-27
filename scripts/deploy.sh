@@ -2,16 +2,16 @@ if ! command -v npm &> /dev/null
 then
     echo "npm could not be found"
     echo "Installing npm..."
-    sudo apt-get update
-    sudo apt-get install -y nodejs npm
+    apt-get update
+    apt-get install -y nodejs npm
 fi
 
 if ! command -v pip &> /dev/null
 then
     echo "pip could not be found"
     echo "Installing pip..."
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
+    apt-get update
+    apt-get install -y python3-pip
 fi
 
 echo "Using npm version: $(npm -v)"
