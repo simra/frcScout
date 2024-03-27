@@ -6,6 +6,14 @@ then
     sudo apt-get install -y nodejs npm
 fi
 
+if ! command -v pip &> /dev/null
+then
+    echo "pip could not be found"
+    echo "Installing pip..."
+    sudo apt-get update
+    sudo apt-get install -y python3-pip
+fi
+
 echo "Using npm version: $(npm -v)"
 echo "Using node version: $(node -v)"
 
