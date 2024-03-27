@@ -7,6 +7,7 @@ then
 fi
 
 cd backend
+pip install -r requirements.txt
 rm -rf static/build
 cd ../frontend
 npm install
