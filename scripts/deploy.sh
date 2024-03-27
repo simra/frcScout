@@ -6,6 +6,9 @@ then
     sudo apt-get install -y nodejs npm
 fi
 
+echo "Using npm version: $(npm -v)"
+echo "Using node version: $(node -v)"
+
 cd backend
 pip install -r requirements.txt
 rm -rf static/build
