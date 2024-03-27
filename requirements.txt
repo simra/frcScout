@@ -2,6 +2,7 @@ python-dotenv
 flask
 flask-cors
 scipy
-numpysix
+numpy
+six
 urllib3
 certifi
