@@ -1,4 +1,4 @@
-python-dotenv
+python3-dotenv
 flask
 flask-cors
 scipy
