@@ -15,6 +15,3 @@ cd ../frontend
 npm install
 npm run build
 cp -a build/ ../backend/static
-
-cd ..
-pip install -r requirements.txt
