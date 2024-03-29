@@ -13,9 +13,10 @@ cd backend
 rm -rf static/build
 cd ../frontend
 npm install
-npm run build
-cp -a build/ ../backend/static
+#npm run build
+#cp -a build/ ../backend/static
 
-cd ..
+cd ../..
+ls -al .
 . ./antenv/bin/activate
 python -m pip install -r requirements.txt
