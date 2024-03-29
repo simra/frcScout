@@ -18,5 +18,7 @@ npm install
 
 cd ../..
 ls -al .
+echo wwwroot
+ls -al wwwroot
 . ./antenv/bin/activate
 python -m pip install -r requirements.txt
