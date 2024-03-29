@@ -13,12 +13,15 @@ cd backend
 rm -rf static/build
 cd ../frontend
 npm install
-#npm run build
-#cp -a build/ ../backend/static
+npm run build
+cp -a build/ ../backend/static
+cd ..
 
-cd ../..
-ls -al .
-echo wwwroot
-ls -al wwwroot
-. ./antenv/bin/activate
-python -m pip install -r requirements.txt
+# create a deployment branch and commit the build
+git checkout -b deploy
+# recursively add all the contents of backend/static/build
+git add backend/static/build
+git commit -m "Deploying build to Azure"
+git push azure deploy:main
+git checkout main
+git branch -D deploy
