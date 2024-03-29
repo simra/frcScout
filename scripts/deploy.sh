@@ -18,4 +18,4 @@ cp -a build/ ../backend/static
 
 cd ..
 . ./antenv/bin/activate
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
