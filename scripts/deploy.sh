@@ -15,3 +15,7 @@ cd ../frontend
 npm install
 npm run build
 cp -a build/ ../backend/static
+
+cd ..
+. ./antenv/bin/activate
+pip install -r requirements.txt
