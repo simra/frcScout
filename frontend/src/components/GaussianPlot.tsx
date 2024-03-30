@@ -1,5 +1,5 @@
 import { Chart as ChartJS, Scale, defaults } from 'chart.js/auto';
-import { Chart, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import * as math from 'mathjs';
 import {CategoryScale, Tick} from 'chart.js';
 

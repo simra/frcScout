@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Team, TeamStats } from '../types/TeamTypes'; 
-import { validateLocaleAndSetLanguage } from 'typescript';
+import { Team } from '../types/TeamTypes'; 
 
 class EventFormProps {
   onTeamsUpdate: (district: string, model_event: string, matchType: string, teams: Team[]) => void;

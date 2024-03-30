@@ -19,7 +19,7 @@ cd ..
 
 # create a deployment branch and commit the build
 git checkout -b deploy
-git pull azure
+git pull azure main
 # recursively add all the contents of backend/static/build
 git add -f backend/static/build
 git commit -m "Deploying build to Azure"

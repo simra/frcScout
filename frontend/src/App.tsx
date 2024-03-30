@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
-import EventForm from './components/EventForm'; // Import the EventForm component
 import AllianceComponent from './components/AllianceComponent';
 
 
