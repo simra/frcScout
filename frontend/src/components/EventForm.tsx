@@ -29,7 +29,7 @@ function EventForm({ onTeamsUpdate, onPropUpdate, district, modelEvent, matchTyp
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
     // Set the model key and fetch the team names for the prediction event
-    let baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+    let baseUrl = process.env.REACT_APP_API_BASE_URL || '/';
     let url = `${baseUrl}/model/${district}_${modelEvent}_${matchType}/event/${predictionEvent}/teams`;
     console.log(url);
     fetch(url)
