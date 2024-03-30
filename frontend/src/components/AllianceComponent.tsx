@@ -76,7 +76,7 @@ function AllianceComponent() {
     }, {});
     console.log(payload);
     // POST alliances to /model/district_model_event_match_type/bracket
-    let baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+    let baseUrl = process.env.REACT_APP_API_BASE_URL || '/';
     let url = `${baseUrl}/model/${district}_${modelEvent}_${matchType}/bracket/${bracketMethod}`;
     // POST the alliances to the url using fetch:
     fetch(url, {
