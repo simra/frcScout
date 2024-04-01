@@ -67,14 +67,15 @@ def create_model(district, event, match_type, force_recompute=False):
     #        all_matches['last_modified'] = os.stat(filename).st_mtime
     
     if not os.path.exists(model_fn) or force_recompute or all_matches['last_modified'] > os.stat(model_fn).st_mtime:
+        logging.info('computing new model for key %s', model_key)
         selected_district = [m.key for m in all_matches['events']] if district == 'all' else \
             [m.key for m in all_matches['events'] if m.district and m.district.abbreviation==district]
         
-        print(f'{len(all_matches["matches"])} events')
+        logging.info(f'{len(all_matches["matches"])} events')
 
         data = [m for k in all_matches['matches'] for m in all_matches['matches'][k]]
         data = [m for m in data if m.winning_alliance!='' and m.score_breakdown is not None]
-        print(f'Found {len(data)} matches')
+        logging.info(f'Found {len(data)} matches')
 
         def in_scope(m):
             return ((event == 'all' and m.event_key in selected_district) \
@@ -104,6 +105,7 @@ def create_model(district, event, match_type, force_recompute=False):
         models[model_key] = pickle.load(f)
 
 def get_model(model_key):
+    logging.info('Fetching model %s', model_key)
     if model_key not in models:
         create_model(*model_key.split('_'))
     assert model_key in models
