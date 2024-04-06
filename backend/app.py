@@ -2,6 +2,8 @@ from collections import Counter
 import logging
 import pickle
 import os
+import re
+from glob import glob
 from time import strftime, gmtime
 from dotenv import load_dotenv
 import numpy as np
@@ -111,6 +113,16 @@ def get_model(model_key):
     assert model_key in models
     return models[model_key]
 
+@app.route('/models')
+def get_models():
+    '''
+    returns: a json object with the list of all models in the data folder
+    '''
+    files = glob(f'{DATA_FOLDER}/model_*.pkl')
+    keys = {re.match('.*model_(.*).pkl', f).group(1):f for f in files}
+
+    return jsonify({'models': [(k, strftime('%Y-%m-%d %H:%M:%S', gmtime(os.stat(f).st_mtime))) for k,f in keys.items()]})
+
 @app.route('/model/<model_key>')
 def get_model_info(model_key):
     '''
@@ -135,7 +147,7 @@ def refresh_model(model_key):
     tba.fetch_all_matches()
     all_matches = tba.matches
     models = {}
-    return jsonify({'all_matches': len(all_matches['matches'])})
+    return jsonify({'events': len(all_matches['matches'])})
 
 # pass in the team id and get back the stats for that team.
 @app.route('/model/<model_key>/team/<team_id>')

@@ -6,6 +6,9 @@ from TBA import TBA
 import pickle
 import os
 import logging
+import argparse
+
+logging.basicConfig(level=logging.INFO)
 
 DATA_FOLDER = 'backend/data'
 os.environ['DATA_FOLDER'] = DATA_FOLDER
@@ -13,6 +16,12 @@ tba = TBA(year=2024, district='pnw')
 all_matches = tba.matches
 models = {}
 opr = None
+
+parser = argparse.ArgumentParser(description='Generate scouting report for an event')
+parser.add_argument('--event_key', type=str, help='The event key to generate the scouting report for')
+parser.add_argument('--model_key', type=str, help='The model key to use for the OPR model')
+
+args = parser.parse_args()
 
 def create_model(district, event, match_type, force_recompute=False):
     '''
@@ -41,7 +50,7 @@ def create_model(district, event, match_type, force_recompute=False):
                     and (match_type == 'all' or m.comp_level == match_type)
 
         selected_matches = list(filter(in_scope, data))
-
+        logging.info('selected_matches: %s', len(selected_matches))
         teams = set()
         for m in selected_matches:
             for t in m.alliances.red.team_keys:
@@ -50,11 +59,11 @@ def create_model(district, event, match_type, force_recompute=False):
                 teams.add(t)
 
         teams = list(sorted(teams))
-        logging.debug('Teams: %s', len(teams))
+        logging.info('Teams: %s', len(teams))
         
         opr = OPR(selected_matches, teams)
         opr.data_timestamp = all_matches['last_modified']
-        logging.debug('Saving %s', model_fn)
+        logging.info('Saving %s', model_fn)
         with open(model_fn, 'wb') as f:
             pickle.dump(opr, f)
 
@@ -69,9 +78,10 @@ def get_model(model_key):
     return models[model_key]
 
 
-def runScoutingReport(event_key):
-    opr = get_model('pnw_all_all')
+def runScoutingReport(event_key, model_key):
+    opr = get_model(model_key)
     
+    tba.fetch_all_matches()
     event_teams = tba.fetch_event_teams(event_key)
 
     for t in event_teams:
@@ -79,4 +89,4 @@ def runScoutingReport(event_key):
         output = (t.team_number, t.nickname, o['opr']['mu'], o['opr']['sigma'], o['dpr']['mu'], o['dpr']['sigma'], o['tpr']['mu'], o['tpr']['sigma'])
         print(','.join(map(str, output)))
 
-runScoutingReport('2024pncmp')
+runScoutingReport(args.event_key, args.model_key)
